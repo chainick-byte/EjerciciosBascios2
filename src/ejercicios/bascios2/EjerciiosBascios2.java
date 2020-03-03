@@ -5,6 +5,8 @@
  */
 package ejercicios.bascios2;
 
+import java.util.Arrays;
+
 /**
  *
  * @author igorr
@@ -312,20 +314,170 @@ public class EjerciiosBascios2 {
     }
 
     public boolean cabeCaja(boolean[][] camion, int anchoCaja, int largoCaja) {
-        int anchoCamion = 0;
-        int largoCamion = 0;
-        int diagonal = 0;
+        int anchoCamion = 3;
+        int largoCamion = 3;
+        int auxiliar = 0;
 
-        for(int i = 0; i < camion.length-1; i++){
-            for(int j = 0; j < camion[i].length-1; j++){
-                //bloques de dos
-               
+        for (int i = 0; i < camion.length - largoCaja; i++) {
+            for (int j = 0; j < camion[i].length - anchoCaja; j++) {
+                if (camion[i][j] == false && camion[i][j + 1] == false && camion[i + 1][j] == false) {
+
+                }
+
             }
-           
+
         }
-        System.out.print(largoCamion);
+        System.out.println("auxiliar" + auxiliar);
         System.out.print(anchoCamion);
         //System.out.print(diagonal);
+        return false;
+    }
+
+    public String cambiaMencion(String mencion) {
+        int longitud = mencion.length();
+        String auxiliarString = "";
+        int auxiliarPosicion = 0;
+        int numeroEspacios = 0;
+        if (longitud == 0) {
+            return mencion;
+        }
+
+        if (mencion.charAt(0) != '@') {
+
+            return mencion;
+        } else {
+            for (int i = 1; i < longitud; i++) {
+                if (mencion.charAt(i) >= 65 && mencion.charAt(i) <= 90) {
+                    auxiliarString = auxiliarString + " ";
+                    numeroEspacios++;
+                    auxiliarPosicion = i;
+                }
+                auxiliarString = auxiliarString + mencion.charAt(i);
+            }
+            String stringfinal = auxiliarString.substring(0, auxiliarPosicion + numeroEspacios);
+            return stringfinal + ".";
+        }
+
+    }
+
+    public boolean escaleraDeColor(int[] mano) {
+        Arrays.sort(mano);
+        int primerAs = mano[0];
+        switch (primerAs) {
+            case 1:
+
+                if (mano[1] == 10 && mano[2] == 11 && mano[3] == 12 && mano[4] == 13) {
+                    System.out.print("Tengo escalera real de primer palo ");
+                    return true;
+                }
+                if (10 % 13 == mano[1] % 13 && 11 % 13 == mano[2] % 13 && mano[3] % 13 == 12 % 13
+                        && 13 % 13 == mano[4] % 13) {
+                    System.out.println("Tengo escalera normal ");
+                    return false;
+                }
+
+                break;
+            case 14:
+                if (mano[1] == 23 && mano[2] == 24 && mano[3] == 25 && mano[4] == 26) {
+                    System.out.print("Tengo escalera real de segundo palo ");
+                    return true;
+                }
+                if (10 % 13 == mano[1] % 13 && 11 % 13 == mano[2] % 13 && mano[3] % 13 == 12 % 13
+                        && 13 % 13 == mano[4] % 13) {
+                    System.out.println("Tengo escalera normal ");
+                    return false;
+                }
+
+                break;
+            case 27:
+                if (mano[1] == 36 && mano[2] == 37 && mano[3] == 38 && mano[4] == 39) {
+                    System.out.print("Tengo primer escalera real de tercer palo ");
+                    return true;
+                }
+                if (10 % 13 == mano[1] % 13 && 11 % 13 == mano[2] % 13 && mano[3] % 13 == 12 % 13
+                        && 13 % 13 == mano[4] % 13) {
+                    System.out.println("Tengo escalera normal");
+                    return false;
+                }
+                break;
+            case 40:
+                if (mano[1] == 49 && mano[2] == 50 && mano[3] == 51 && mano[4] == 52) {
+                    System.out.print("Tengo primer escalera real de ultimo  palo ");
+                    return true;
+                }
+                if (10 % 13 == mano[1] % 13 && 11 % 13 == mano[2] % 13 && mano[3] % 13 == 12 % 13
+                        && 13 % 13 == mano[4] % 13) {
+                    System.out.println("Tengo escalera normal");
+                    return false;
+                }
+                break;
+            default:
+                System.out.println(52 % 12);
+                return false;
+
+        }
+        System.out.println(52 % 13);
+        System.out.println(13 % 13);
+        return false;
+    }
+
+    public boolean sudoku(int[][] cuadrado, int dimension) {
+        //hay que comprobar que todos los numeros cumplen primer requisito 
+        int[] manoOrdenada = new int[dimension];
+        int count = dimension;
+        int auxiliar = 0;
+        int auxiliarFila=0;
+        int auxiliarColumna=0;
+        //convertimos un array bidimensional en una array unidemnsional
+        for (int i = 0; i < cuadrado.length; i++) {
+            for (int j = 0; j < cuadrado[i].length; j++) {
+                cuadrado[i][j] = manoOrdenada[count-1];
+                count--;
+                //System.out.println(dimension);
+
+            }
+        }
+        //se ordena lel array unidimensional 
+        Arrays.sort(manoOrdenada);
+        // se comproba que el array cumple la primera premisa que esta compuesta por 
+        //de 0 al dimension cada miembro de array  se diferencia en 1!
+        for (int i = 0; i < dimension - 1; i++) {
+            if ( manoOrdenada[i + 1] - manoOrdenada[i] == 1) {
+                auxiliar++;
+            System.out.println("auxiliar: "+auxiliar);
+            }
+
+            if (auxiliar != dimension) {
+                System.out.println(" No es cuadrado magico ya que no cumple primera condicion");
+                return false;
+                // aqui vamos a comprobar la segunda premisa , la suma de cada fila es igual a la suma de cada 
+                //columna de array de partida (bidimensional)
+            } else {
+                int m = 0;
+                int n = 0;
+                 if(cuadrado[m][n] + cuadrado[m+1][n] + cuadrado[m+2][n]
+                        == cuadrado[m][n+1] + cuadrado[m + 1][n + 1] + cuadrado[m + 2][n + 1]
+                        && n < 3){
+                    n++;
+                    auxiliarColumna++;
+                }
+                 //si no , los indices me dan error
+                n=0;
+                if (cuadrado[m][n] + cuadrado[m][n + 1] + cuadrado[m][n + 2]
+                        == cuadrado[m+1][n] + cuadrado[m + 1][n + 1] + cuadrado[m + 1][n + 2]
+                        && m < 3) {
+                    m++;
+                    auxiliarFila++;
+                }
+               
+                if(auxiliarFila==auxiliarColumna){
+                    System.out.println("Enhorabuena tienes un cuadrado magico , 5 millones años de evolucion para "
+                            + "obtener este mojon de cuadrado!");
+                    return true;
+                }
+            }
+        }
+        System.out.println("No es cuadrado magico ya no cumple segunda condicion!");
         return false;
     }
 
@@ -356,13 +508,22 @@ public class EjerciiosBascios2 {
         System.out.println(ejercicios.contenidoContenible("repala mpago", "la mp"));
         boolean[][] camion = {
             {true, true, true, true, true, true, true, true},
-            {true, false, false, true, true, true, true, true},
-            {true, true, false, false, true, true, true, true},
-            {true, true, true, false, false, true, false, false},
+            {true, false, false, false, true, true, true, true},
+            {true, false, false, false, true, true, true, true},
+            {true, false, false, false, false, true, false, false},
             {true, true, true, true, true, true, false, false},};
         System.out.println(ejercicios.cabeCaja(camion, 3, 3));
+        System.out.println(ejercicios.cambiaMencion("@OrtegaYGasetPrimero"));
+        int[] mano = {10, 17, 52, 1, 12};
+        System.out.println(ejercicios.escaleraDeColor(mano));
+        int[][] cuadrado = {
+            {4, 2, 9},
+            {3, 5, 7},
+            {8, 1, 6}
+        };
+        int dimension = 9;
+        System.out.println(ejercicios.sudoku(cuadrado, dimension));
 
     }
 
 }
- 
